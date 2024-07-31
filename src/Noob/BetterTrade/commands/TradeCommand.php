@@ -60,6 +60,9 @@ class TradeCommand extends Command implements PluginOwned{
                     $player->sendMessage($prefix . "Please, Click At Trader !");
                 }
                 break;
+            default:
+                $player->sendMessage($prefix . "Use: /bettertrade create Ore /bettertrade edit");
+                break;
         }
     }
 
