@@ -207,10 +207,6 @@ class VillagerTrade extends Living{
         $menu->send($player);
     }
 
-    public function getCountItem(){
-
-    }
-
     public function getItemArray(Item $itemA, Item $itemB, Item $itemC, Item $itemD): array{
         $itemList = [];
         if(!$itemA->isNull()){
@@ -348,6 +344,32 @@ class VillagerTrade extends Living{
             }
             return $transaction->continue();
             
+        });
+        $menu->setInventoryCloseListener(function (Player $player, Inventory $inventory){
+            $this->listTrade = [];
+            for($i = 45; $i <= 53; $i++){
+                $itemSell = $inventory->getItem($i);
+                if(!$itemSell->isNull()){
+                    $itemA = "";
+                    $itemB = "";
+                    $itemC = "";
+                    $itemD = "";
+                    $slotItemA = $i - 18 - 9 - 9 - 9;
+                    $slotItemB = $i - 18 - 9 - 9;
+                    $slotItemC = $i - 18 - 9;
+                    $slotItemD = $i - 18;
+                    $player->sendMessage((string)$slotItemA);
+                    $player->sendMessage((string)$slotItemB);
+                    $player->sendMessage((string)$slotItemC);
+                    $player->sendMessage((string)$slotItemD);
+                    if(!$inventory->getItem($slotItemD)->isNull()) $itemD = BetterTrade::getInstance()->itemToData($inventory->getItem($slotItemD));
+                    if(!$inventory->getItem($slotItemC)->isNull()) $itemC = BetterTrade::getInstance()->itemToData($inventory->getItem($slotItemC));
+                    if(!$inventory->getItem($slotItemB)->isNull()) $itemB = BetterTrade::getInstance()->itemToData($inventory->getItem($slotItemB));
+                    if(!$inventory->getItem($slotItemA)->isNull()) $itemA = BetterTrade::getInstance()->itemToData($inventory->getItem($slotItemA));
+                    $this->editItem($i, $itemA, $itemB, $itemC, $itemD, BetterTrade::getInstance()->itemToData($itemSell));
+                    $player->sendMessage($prefix . "Save Item Successfully");
+                    BetterTrade::getInstance()->removeEditor($player);
+                }
         });
         $menu->send($player);
     }
