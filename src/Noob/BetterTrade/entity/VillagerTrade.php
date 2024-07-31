@@ -326,10 +326,6 @@ class VillagerTrade extends Living{
                         $slotItemB = $i - 18 - 9 - 9;
                         $slotItemC = $i - 18 - 9;
                         $slotItemD = $i - 18;
-                        $player->sendMessage((string)$slotItemA);
-                        $player->sendMessage((string)$slotItemB);
-                        $player->sendMessage((string)$slotItemC);
-                        $player->sendMessage((string)$slotItemD);
                         if(!$action->getInventory()->getItem($slotItemD)->isNull()) $itemD = BetterTrade::getInstance()->itemToData($action->getInventory()->getItem($slotItemD));
                         if(!$action->getInventory()->getItem($slotItemC)->isNull()) $itemC = BetterTrade::getInstance()->itemToData($action->getInventory()->getItem($slotItemC));
                         if(!$action->getInventory()->getItem($slotItemB)->isNull()) $itemB = BetterTrade::getInstance()->itemToData($action->getInventory()->getItem($slotItemB));
